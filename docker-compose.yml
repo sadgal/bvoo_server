@@ -4,27 +4,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile # Refers to the Dockerfile created in Step 1
+    image: mon-app-backend-image:latest
     ports:
       - "8080:3000" # Map host port 8080 to container port 3000
     environment:
-      #OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
       # Example environment variables for the backend
-      DATABASE_URL: postgresql://user:password@db:5432/mydb
-    depends_on:
-      - db # Ensures the database starts before the backend
-
-  db:
-    image: 'postgres:16-alpine' # Using an official database image
-    volumes:
-      - 'postgres_data:/var/lib/postgresql/data'
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: mydb
-
-volumes:
-  postgres_data:
 
     # Redémarre automatiquement
 
-  restart: always
+    restart: always
